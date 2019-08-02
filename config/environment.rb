@@ -11,6 +11,18 @@ ActiveRecord::Base.establish_connection(
   :database => "db/students.sqlite"
 )
 
+sql = <<-SQL
+  CREATE TABLE IF NOT EXISTS students (
+  id INTEGER PRIMARY KEY,
+  name TEXT,
+  grade TEXT,
+  age INTEGER,
+  hometown TEXT
+  )
+SQL
+ 
+ActiveRecord::Base.connection.execute(sql)
+
 DBRegistry[ENV["SCHOOL_ENV"]].connect!
 DB = ActiveRecord::Base.connection
 
